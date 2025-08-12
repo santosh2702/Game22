@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quantum Cosmos</title>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <style>
+    body { background: #0f0f23; color: white; font-family: Arial; margin: 0; padding: 20px; }
+    #menu { text-align: center; margin-bottom: 20px; }
+    #menu button { padding: 10px 20px; margin: 10px; background: #333; color: white; border: none; cursor: pointer; transition: background 0.3s; }
+    #menu button:hover { background: #555; }
+    #modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #222; padding: 20px; border: 1px solid #666; z-index: 10; }
+    #chat { display: none; margin-top: 10px; height: 100px; overflow-y: scroll; background: #111; padding: 10px; }
+    #chat-input { width: 80%; padding: 5px; }
+    canvas { border: 1px solid white; background: #1a1a2e; display: block; margin: 0 auto; }
+    #hand button { padding: 10px; margin: 5px; background: #333; color: white; draggable: true; cursor: grab; }
+    #hand button:hover { transform: scale(1.05); transition: 0.2s; }
+    /* Tooltips */
+    [title] { position: relative; }
+    [title]:hover::after { content: attr(title); position: absolute; bottom: 100%; left: 0; background: #444; padding: 5px; border-radius: 5px; white-space: pre-wrap; width: 200px; }
+  </style>
+</head>
+<body>
+  <div id="menu">
+    <button onclick="showModal()">New Game</button>
+    <button onclick="showHighScores()">High Scores</button>
+    <button onclick="toggleSettings()">Settings</button>
+  </div>
+  <div id="modal">
+    <h2>Game Setup</h2>
+    <select id="mode">
+      <option>Single Player</option>
+      <option>2v2</option>
+      <option>3v3</option>
+      <option>4v4</option>
+    </select>
+    <input id="roomCode" placeholder="Room Code (for multiplayer)" />
+    <button onclick="startGame()">Start</button>
+    <button onclick="hideModal()">Cancel</button>
+  </div>
+  <canvas id="boardCanvas" width="700" height="700" style="display: none;"></canvas>
+  <div id="hand" style="display: none;"></div>
+  <div id="status" style="display: none;"></div>
+  <button id="nextTurnBtn" onclick="nextTurn()" style="display: none;">Next Turn</button>
+  <div id="chat" style="display: none;"></div>
+  <input id="chat-input" placeholder="Chat..." style="display: none;" onkeypress="if(event.keyCode==13) sendChat()" />
+  <script src="javascript.js"></script>
+</body>
+</html>
